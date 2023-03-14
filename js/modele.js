@@ -22,7 +22,7 @@ class Modele{
 
         try {
             // Ouverture du fichier en mode écriture
-            $file = fopen('../api/datarep.json', 'w');
+            $file = fopen('datarep.json', 'w');
             // Écriture de la chaine récupérée dans le fichier etat.json
             fputs($file, $data);
             // Fermeture du fichier
