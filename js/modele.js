@@ -4,3 +4,10 @@
 
 
 //l'appel à l'API
+
+
+async function Api(url) {
+
+
+    
+}
