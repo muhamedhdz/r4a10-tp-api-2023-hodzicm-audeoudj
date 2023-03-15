@@ -10,3 +10,8 @@ view.research.addEventListener("click", function () {
     modele.setSearchedText(search); // On envoie la valeur de l'input à la classe Modele
     modele.fetchAPI();
 });
+
+ 
+
+
+
