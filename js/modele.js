@@ -120,8 +120,7 @@ class Modele{
         }
     }
 
-    afficherFavoris(){
-        window.localStorage.setItem("favorites", JSON.stringify(this.favorites)); 
+    afficherFavoris(){ 
         if(this.favorites.length == 0 && view.ulfavoris.childElementCount == 0){
             const empty = document.createElement("p");
             empty.classList.add("info-vide");
@@ -137,7 +136,7 @@ class Modele{
                 li.appendChild(span);
                 li.appendChild(img);
 
-                img.src = "img/croix.png";
+                img.src = "images/croix.svg";
                 img.title = "Cliquer pour supprimer le favori";
                 img.width = "15";
 

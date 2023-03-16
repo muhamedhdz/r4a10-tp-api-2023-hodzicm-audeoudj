@@ -10,6 +10,7 @@ view.research.addEventListener("click", function () {
     console.log(search);
     modele.setSearchedText(search); // On envoie la valeur de l'input à la classe Modele
     if(search != ""){
+        modele.deleteAfficher();
         modele.fetchAPI();
     }
     // set l'input en rouge ? tooltip ?
