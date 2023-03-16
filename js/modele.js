@@ -7,9 +7,50 @@ class Modele{
     *  @var string
     */
     searchText;
+    data;
+    favorites;
 
     constructor(){
         this.searchText = '';
+        this.data = '';
+        this.favorites = [];
+    }
+
+    getFavorites(){
+        return this.favorites;
+    }
+
+    setFavorites(favorites){
+        this.favorites = favorites;
+    }
+
+    clearFavorites(){
+        this.favorites = [];
+    }
+
+    removeFavorites(index){
+        this.favorites.splice(index, 1);
+    }
+
+    addFavorites(favorite){
+        this.favorites.push(favorite);
+    }
+
+    deleteFavorites(favorite){
+        for(let i = 0; i < this.favorites.length; i++){
+            if(this.favorites[i].hits[0].recipe.label == favorite.hits[0].recipe.label){
+                this.favorites.splice(i, 1);
+            }
+        }
+    }
+
+    isAlreadyFavorite(favorite){
+        for(let i = 0; i < this.favorites.length; i++){
+            if(this.favorites[i].hits[0].recipe.label == favorite.hits[0].recipe.label){
+                return true;
+            }
+        }
+        return false;
     }
 
     getSearchedText(){
@@ -18,6 +59,14 @@ class Modele{
 
     setSearchedText(search){
         this.searchText = search;
+    }
+
+    getResult(){
+        return this.data;
+    }
+
+    setResult(data){
+        this.data = data;
     }
 
 
@@ -30,21 +79,12 @@ class Modele{
         //afficher pr voir
         console.log(data);
         //console.log(JSON.stringify(data));
+        this.setResult(data);
         this.afficher(data);
         return data;
     }
     
     //on va créer une fonction qui va afficher les données de l'API dans l'HTML
-
-   /* afficher(data){
-        for(let i = 0; i < data.hits.length; i++){
-            const res = document.createElement("p"); 
-            res.classList.add("res");
-            res.innerText = data.hits[i].recipe.label;  
-            view.blocresultat.appendChild(res);
-        }
-    }*/
-
 
     afficher(data){
         //si il n'y a pas de résultat
@@ -63,17 +103,14 @@ class Modele{
                 const res = document.createElement("div");
                 const img = document.createElement("img");
                 const titre = document.createElement("h4");
-                const favoris = document.createElement("button");
                 const ingredients = document.createElement("button");
                 //ajout des éléments dans la div
                 res.appendChild(img);
                 res.appendChild(titre);
-                res.appendChild(favoris);
                 res.appendChild(ingredients);
                 //ajout des classes
                 res.classList.add("res");
                 res.classList.add("card");
-                favoris.classList.add("btn_favoris");
                 //ingredients.classList.add("btn_ingredients");
                 //ajout des attributs
                 img.src = data.hits[i].recipe.image;
@@ -83,11 +120,34 @@ class Modele{
         }
     }
 
-    setFavorite(){
-        console.log("favoris");
-    }
-    
+    afficherFavoris(){
+        window.localStorage.setItem("favorites", JSON.stringify(this.favorites)); 
+        if(this.favorites.length == 0 && view.ulfavoris.childElementCount == 0){
+            const empty = document.createElement("p");
+            empty.classList.add("info-vide");
+            empty.innerText = "Aucun favoris";
+            view.sectionfavoris.appendChild(empty);
+        }else{
+            for(let i = 0; i < this.favorites.length; i++){
+                console.log("test" + i) ;
+                const li = document.createElement("li");
+                const img = document.createElement("img");
+                const span = document.createElement("span");
 
+                li.appendChild(span);
+                li.appendChild(img);
+
+                img.src = "img/croix.png";
+                img.title = "Cliquer pour supprimer le favori";
+                img.width = "15";
+
+                span.innerText = this.searchText;
+                span.title = "Cliquer pour relancer la recherche";
+
+                view.ulfavoris.append(li);
+            }
+    }
+}
 }
 
 // on veut afficher

@@ -3,16 +3,19 @@ const view = {
 
    RechercheInput : document.getElementById("RechercheForm"),
 
-   
    research: document.getElementById("btn-lancer-recherche"),
 
    resultat: document.querySelectorAll(".res"),
 
    blocresultat: document.getElementById('bloc-resultats'),
 
-   btn_favoris: document.querySelectorAll(".btn_favoris"),
+   btnfavoris: document.getElementById("btn-favoris"),
 
-  // ingredients: document.querySelectorAll(".btn_ingredients"),
+   ulfavoris: document.getElementById("liste-favoris"),
+
+   sectionfavoris: document.getElementById("section-favoris"),
+
+
 }
 
 
