@@ -9,6 +9,10 @@ const view = {
    resultat: document.querySelectorAll(".res"),
 
    blocresultat: document.getElementById('bloc-resultats'),
+
+   btn_favoris: document.querySelectorAll(".btn_favoris"),
+
+  // ingredients: document.querySelectorAll(".btn_ingredients"),
 }
 
 
