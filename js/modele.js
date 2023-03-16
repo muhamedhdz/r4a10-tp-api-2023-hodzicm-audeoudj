@@ -148,6 +148,16 @@ class Modele{
             }
     }
 }
+
+    deleteAfficher(){
+        if(view.blocresultat.childElementCount > 0){
+        while(view.blocresultat.firstChild){
+            view.blocresultat.removeChild(view.blocresultat.firstChild);
+        }
+        }
+    }
+
+
 }
 
 // on veut afficher
