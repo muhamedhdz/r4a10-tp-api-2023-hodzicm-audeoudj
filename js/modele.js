@@ -58,11 +58,11 @@ class Modele{
     setResult(data){
         this.data = data;
     }
-
+    // &from=0&to=3
 
     async fetchAPI() {
         this.loading();
-        const baseURL = `https://api.edamam.com/search?q=${this.searchText}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3`;
+        const baseURL = `https://api.edamam.com/search?q=${this.searchText}&app_id=${APP_ID}&app_key=${APP_KEY}`; 
         //on va récupérer les données de l'API
         const response = await fetch(baseURL);
         //on va convertir les données en JSON

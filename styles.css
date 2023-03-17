@@ -112,6 +112,10 @@ h1 {
   text-align: center;
 }
 
+#bloc-resultats{
+  flex-wrap: wrap;
+}
+
 #bloc-resultats p.res::before {
   /* Affichage d'une flèche devant chaque résultat
 		(Cf. https://unicode-table.com/fr/21E8/ ) */
@@ -172,10 +176,15 @@ h1 {
 
 .card {
   background-color: #2d2d2d;
-  border-radius: 5px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  margin: 0 0 20px;
-  padding: 20px;
+  width: 20%;
+  margin: 20px 2.5%;
+  align-items: center;
+  border-radius: 20px;
+}
+.card img{
+  width: 100%;
+  border-radius: 20px 20px 0 0;
 }
 
 #bloc-resultats {
@@ -191,4 +200,9 @@ h1 {
 
 .btn_favoris {
   background-color: #ff0101;
+}
+
+#bloc-resultats h4{
+  color: var(--main-green);
+  margin-left: 15px;
 }
