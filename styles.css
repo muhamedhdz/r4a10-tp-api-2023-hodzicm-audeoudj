@@ -206,3 +206,9 @@ h1 {
   color: var(--main-green);
   margin-left: 15px;
 }
+#bloc-resultats a{
+  background-color: var(--main-green);
+  margin-left: 15px;
+  padding: 5px;
+  border-radius: 5px;
+}

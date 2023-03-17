@@ -15,6 +15,15 @@ view.research.addEventListener("click", function () {
     //tooltip ?
 });
     
+view.RechercheInput.addEventListener("keyup", function (){
+    if(modele.searchText == ""){
+        view.etoile.src = "images/etoile-pleine.svg";
+        view.etoile.alt = "étoile vide";
+    }else if(modele.search != ""){
+        view.etoile.src = "images/etoile-vide.svg";
+        view.etoile.alt = "étoile pleine";
+    }
+})
 
 view.btnfavoris.addEventListener("click", function () {
     if(modele.searchText != ""){
