@@ -61,6 +61,7 @@ class Modele{
 
 
     async fetchAPI() {
+        this.loading();
         const baseURL = `https://api.edamam.com/search?q=${this.searchText}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=3`;
         //on va récupérer les données de l'API
         const response = await fetch(baseURL);
@@ -70,6 +71,7 @@ class Modele{
         console.log(data);
         //console.log(JSON.stringify(data));
         this.setResult(data);
+        this.deleteAfficher();
         this.afficher(data);
         return data;
     }
@@ -140,9 +142,9 @@ class Modele{
 
                 view.ulfavoris.append(li);
 
+        }
+        
     }
-    
-}
 
 
     deleteAfficherFavoris(){
@@ -190,4 +192,11 @@ class Modele{
         return -1;
     }
     
+    loading(){
+        const gif = document.createElement("img");
+        gif.src = "images/attente-ajax.gif";
+        //ajout de l'élément dans le HTML
+        view.blocresultat.appendChild(gif);
+
+    }
 }
