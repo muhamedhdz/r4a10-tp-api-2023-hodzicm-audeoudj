@@ -79,6 +79,9 @@ class Modele{
     //on va créer une fonction qui va afficher les données de l'API dans l'HTML
 
     afficher(data){
+        // enlever le gif du chargement
+        this.removeLoading();
+
         //si il n'y a pas de résultat
         console.log("ICIIIIIIIIIIIIIIIIIII");
         console.log(data);
@@ -193,10 +196,10 @@ class Modele{
     }
     
     loading(){
-        const gif = document.createElement("img");
-        gif.src = "images/attente-ajax.gif";
-        //ajout de l'élément dans le HTML
-        view.blocresultat.appendChild(gif);
+        view.loading_gif.style.display = "block";
+    }
 
+    removeLoading(){
+        view.loading_gif.style.display = "none";
     }
 }

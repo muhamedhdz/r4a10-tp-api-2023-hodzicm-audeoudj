@@ -19,4 +19,6 @@ const view = {
 
    btn_delete: document.querySelectorAll(".btn_delete"),
 
+   loading_gif: document.getElementById("bloc-gif-attente"),
+
 }
