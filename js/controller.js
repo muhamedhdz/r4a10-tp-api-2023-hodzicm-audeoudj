@@ -27,21 +27,21 @@ view.RechercheInput.addEventListener("keyup", function (){
 
 view.btnfavoris.addEventListener("click", function () {
     if(modele.searchText != ""){
-        const data = modele.getResult();
-        if(modele.textisAlreadyFavorite(modele.searchText)){
-            const confirmation = confirm("Voulez vous vraiment supprimer ce favoris ?");
-            if(confirmation){
-                //on supprime le favori de la liste des favoris
-                const remove = JSON.parse(localStorage.getItem('donnee'));
-                modele.deleteFavorites(remove.getFavoriteIndex(data));
-                localStorage.setItem("favoris", JSON.stringify(modele.favorites));
-                //on change l'image de l'étoile
-                modele.setupImageEtoile();
-                //on réaffiche la liste des favoris sans le favori supprimé
-                modele.deleteAfficherFavoris();
-                modele.afficherFavoris();
-            }
-        }else{
+        const data = modele.getSearchedText();
+        if(!modele.textisAlreadyFavorite(modele.searchText)){
+        //     const confirmation = confirm("Voulez vous vraiment supprimer ce favoris ?");
+        //     if(confirmation){
+        //         //on supprime le favori de la liste des favoris
+        //         const remove = JSON.parse(localStorage.getItem('donnee'));
+        //         modele.deleteFavorites(remove.getFavoriteIndex(data));
+        //         localStorage.setItem("favoris", JSON.stringify(modele.favorites));
+        //         //on change l'image de l'étoile
+        //         modele.setupImageEtoile();
+        //         //on réaffiche la liste des favoris sans le favori supprimé
+        //         modele.deleteAfficherFavoris();
+        //         modele.afficherFavoris();
+        //     }
+        // }else{
             modele.addFavorites(data);
             localStorage.setItem("favoris", JSON.stringify(modele.favorites));
             modele.setupImageEtoile();
@@ -49,6 +49,42 @@ view.btnfavoris.addEventListener("click", function () {
         }
     }
 });
+// view.ulfavoris.addEventListener("click", function(event){
+    
+//     if(event.target.classList.contains("rechercher_fav")) {
+//         for(let i = 0; i < view.favSpan.length; i++){
+//         view.favSpan[i].addEventListener("click", function () {
+//             search = view.favSpan[i].value;
+//             console.log("dans le listener");
+//             modele.setSearchedText(search);
+//             if(search != ""){
+//                 modele.deleteAfficher();
+//                 modele.fetchAPI();
+//             }
+//         });
+//     }
+//     };
+
+// });
+
+view.ulfavoris.addEventListener("click", function(event){
+    if (event.target.classList.contains("rechercher_fav")) {
+        const search = event.target.textContent;
+        document.querySelector("#RechercheForm").value = search;
+        console.log(search);
+        console.log("dans le listener");
+        modele.setSearchedText(search);
+        if (search != "") {
+            modele.deleteAfficher();
+            modele.fetchAPI();
+        }
+    }
+    if (event.target.classList.contains("btn_delete")) {
+        modele.deleteFavorites(event.target.textContent);
+        console.log(modele.favorites);
+    }
+});
+
 
 
 

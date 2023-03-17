@@ -32,6 +32,7 @@ class Modele{
 
     deleteFavorites(index){
         this.favorites.splice(index, 1);
+        view.afficherFav(this);
     }
 
     isAlreadyFavorite(favorite){
@@ -58,7 +59,6 @@ class Modele{
     setResult(data){
         this.data = data;
     }
-    // &from=0&to=3
 
     async fetchAPI() {
         this.loading();
@@ -86,16 +86,17 @@ class Modele{
     }
 
     afficherFavoris(){
-        view.afficherFav(this.getFavorites)
+        view.afficherFav(this)
     }
 
 
     deleteAfficherFavoris(){
     
-        while(view.ulfavoris.firstChild){
-            view.ulfavoris.removeChild(view.ulfavoris.firstChild);
-        }
-        view.ulfavoris.nextSibling.remove();
+        // while(view.ulfavoris.firstChild){
+        //     view.ulfavoris.removeChild(view.ulfavoris.firstChild);
+        // }
+        // view.ulfavoris.nextSibling.remove();
+        view.ulfavoris.innerHTML = "";
         
     }
 

@@ -181,6 +181,7 @@ h1 {
   margin: 20px 2.5%;
   align-items: center;
   border-radius: 20px;
+  padding-bottom: 15px;
 }
 .card img{
   width: 100%;
