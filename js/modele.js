@@ -20,33 +20,23 @@ class Modele{
         return this.favorites;
     }
 
-    setFavorites(favorites){
-        this.favorites = favorites;
-    }
-
     clearFavorites(){
         this.favorites = [];
     }
 
-    removeFavorites(index){
-        this.favorites.splice(index, 1);
-    }
-
-    addFavorites(favorite){
-        this.favorites.push(favorite);
-    }
-
-    deleteFavorites(favorite){
-        for(let i = 0; i < this.favorites.length; i++){
-            if(this.favorites[i].hits[0].recipe.label == favorite.hits[0].recipe.label){
-                this.favorites.splice(i, 1);
-            }
+    addFavorites(data){
+        if(!this.isAlreadyFavorite(data)){
+            this.favorites.push(data);
         }
+    }
+
+    deleteFavorites(index){
+        this.favorites.splice(index, 1);
     }
 
     isAlreadyFavorite(favorite){
         for(let i = 0; i < this.favorites.length; i++){
-            if(this.favorites[i].hits[0].recipe.label == favorite.hits[0].recipe.label){
+            if(this.favorites[i] == favorite){
                 return true;
             }
         }
@@ -88,7 +78,10 @@ class Modele{
 
     afficher(data){
         //si il n'y a pas de résultat
-        if(data.hits.length == 0){
+        console.log("ICIIIIIIIIIIIIIIIIIII");
+        console.log(data);
+        
+        if (!data || !data.hits || data.hits.length === 0){
             //création d'un élément HTML
             const empty = document.createElement("p");
             //ajout d'une classe
@@ -120,15 +113,16 @@ class Modele{
         }
     }
 
-    afficherFavoris(){ 
-        if(this.favorites.length == 0 && view.ulfavoris.childElementCount == 0){
+    afficherFavoris(favorites){ 
+        //&& view.ulfavoris.childElementCount == 0
+        console.log(favorites);
+        favorites = favorites[0];
+        if (!favorites || !favorites.hits || favorites.hits.length === 0){
             const empty = document.createElement("p");
             empty.classList.add("info-vide");
             empty.innerText = "Aucun favoris";
             view.sectionfavoris.appendChild(empty);
         }else{
-            for(let i = 0; i < this.favorites.length; i++){
-                console.log("test" + i) ;
                 const li = document.createElement("li");
                 const img = document.createElement("img");
                 const span = document.createElement("span");
@@ -139,14 +133,26 @@ class Modele{
                 img.src = "images/croix.svg";
                 img.title = "Cliquer pour supprimer le favori";
                 img.width = "15";
+                img.classList.add("btn_delete");
 
                 span.innerText = this.searchText;
                 span.title = "Cliquer pour relancer la recherche";
 
                 view.ulfavoris.append(li);
-            }
+
     }
+    
 }
+
+
+    deleteAfficherFavoris(){
+    
+        while(view.ulfavoris.firstChild){
+            view.ulfavoris.removeChild(view.ulfavoris.firstChild);
+        }
+        view.ulfavoris.nextSibling.remove();
+        
+    }
 
     deleteAfficher(){
         if(view.blocresultat.childElementCount > 0){
@@ -156,14 +162,32 @@ class Modele{
         }
     }
 
+
+    textisAlreadyFavorite(){
+        for(let i = 0; i < view.ulfavoris.childElementCount; i++){
+            if(view.ulfavoris.children[i].firstChild.innerText == this.searchText){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     setupImageEtoile(){
+        if(this.isAlreadyFavorite(this.searchText)){
+            view.etoile.src = "images/etoile-pleine.svg";
+        }else{
+            view.etoile.src = "images/etoile-vide.svg";
+        }
+    }
 
+    getFavoriteIndex(data){
+        for(let i = 0; i < this.favorites.length; i++){
+            if(JSON.stringify(this.favorites[i]) === JSON.stringify(data)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
 }
-
-// on veut afficher
-
-// 1. Image (hits.recipe.image)
-// 2. Label (hits.recipe.label)
-
-//étape 2
-// 3. Ingredients (hits.recipe.ingredientLines)

@@ -6,30 +6,46 @@ Récupère la valeur de l'input (recherche) et l'envoie à l'API
 */
 view.research.addEventListener("click", function () {
     search = document.querySelector("#RechercheForm").value;
-    modele.setSearchedText(search); // On envoie la valeur de l'input à la classe Modele
-    console.log(search);
-    modele.setSearchedText(search); // On envoie la valeur de l'input à la classe Modele
+    
+    modele.setSearchedText(search);
     if(search != ""){
         modele.deleteAfficher();
         modele.fetchAPI();
     }
-    // set l'input en rouge ? tooltip ?
+    //tooltip ?
 });
     
 
 view.btnfavoris.addEventListener("click", function () {
     if(modele.searchText != ""){
-    //prendre le resultat de l'api pour le stocker dans le localstorage
-    const data = modele.getResult();
-        if(modele.isAlreadyFavorite(data)){
-            console.log("déjà dans les favoris");
+        const data = modele.getResult();
+        if(modele.textisAlreadyFavorite(modele.searchText)){
+            const confirmation = confirm("Voulez vous vraiment supprimer ce favoris ?");
+            if(confirmation){
+                //on supprime le favori de la liste des favoris
+                const remove = JSON.parse(localStorage.getItem('donnee'));
+                modele.deleteFavorites(remove.getFavoriteIndex(data));
+                localStorage.setItem("favoris", JSON.stringify(modele.favorites));
+                //on change l'image de l'étoile
+                modele.setupImageEtoile();
+                //on réaffiche la liste des favoris sans le favori supprimé
+                modele.deleteAfficherFavoris();
+                modele.afficherFavoris();
+            }
         }else{
             modele.addFavorites(data);
-            console.log("test");
-
-            localStorage.setItem("favorites", JSON.stringify(modele.getFavorites()));
-            console.log(modele.getFavorites());
-            modele.afficherFavoris();
+            localStorage.setItem("favoris", JSON.stringify(modele.favorites));
+            modele.setupImageEtoile();
+            modele.afficherFavoris(modele.favorites);
         }
     }
-})
+});
+
+
+
+// Récupération des données du localStorage lors du chargement de la page
+window.addEventListener('load', function() {
+    const data = JSON.parse(localStorage.getItem('favoris'));
+    modele.afficherFavoris(data);
+});
+
