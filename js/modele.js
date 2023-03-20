@@ -32,6 +32,7 @@ class Modele{
 
     deleteFavorites(index){
         this.favorites.splice(index, 1);
+        this.setupImageEtoile();
         view.afficherFav(this);
     }
 
