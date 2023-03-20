@@ -80,7 +80,9 @@ view.ulfavoris.addEventListener("click", function(event){
         }
     }
     if (event.target.classList.contains("btn_delete")) {
-        modele.deleteFavorites(event.target.textContent);
+        const index = event.target.dataset.index;
+        modele.deleteFavorites(index)
+        //modele.deleteFavorites(event.target.textContent);
         console.log(modele.favorites);
     }
 });
@@ -94,3 +96,16 @@ window.addEventListener('load', function() {
     modele.afficherFavoris(data);
 });
 
+
+// un event sur la touche entrée, pour qu'elle fait research
+document.addEventListener("keydown", function (event) { 
+    if (event.key == "Enter") {
+    search = document.querySelector("#RechercheForm").value;
+    modele.setSearchedText(search);
+    if(search != ""){
+        modele.deleteAfficher();
+        modele.fetchAPI();
+    }
+    }
+  }
+  ); 
