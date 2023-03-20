@@ -49,23 +49,6 @@ view.btnfavoris.addEventListener("click", function () {
         }
     }
 });
-// view.ulfavoris.addEventListener("click", function(event){
-    
-//     if(event.target.classList.contains("rechercher_fav")) {
-//         for(let i = 0; i < view.favSpan.length; i++){
-//         view.favSpan[i].addEventListener("click", function () {
-//             search = view.favSpan[i].value;
-//             console.log("dans le listener");
-//             modele.setSearchedText(search);
-//             if(search != ""){
-//                 modele.deleteAfficher();
-//                 modele.fetchAPI();
-//             }
-//         });
-//     }
-//     };
-
-// });
 
 view.ulfavoris.addEventListener("click", function(event){
     if (event.target.classList.contains("rechercher_fav")) {
@@ -80,10 +63,11 @@ view.ulfavoris.addEventListener("click", function(event){
         }
     }
     if (event.target.classList.contains("btn_delete")) {
-        const index = event.target.dataset.index;
-        modele.deleteFavorites(index)
-        //modele.deleteFavorites(event.target.textContent);
-        console.log(modele.favorites);
+        confirm("Voulez vous vraiment supprimer ce favoris ?");
+        if(confirm){
+        const index = [...event.target.parentNode.parentNode.children].indexOf(event.target.parentNode);
+        modele.deleteFavorites(index);
+        }
     }
 });
 
