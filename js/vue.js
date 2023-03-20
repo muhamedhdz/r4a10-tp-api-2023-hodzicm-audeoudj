@@ -72,12 +72,15 @@ const view = {
     console.log(modele.getFavorites());
     favorites = modele.getFavorites();
     //   favorites = favorites[0];
-    if (favorites.length === 0) {
+    const existingEmpty = document.querySelector('#section-favoris .info-vide');
+    if (favorites.length === 0 && !existingEmpty) {
       const empty = document.createElement("p");
       empty.classList.add("info-vide");
       empty.innerText = "No favorite";
       view.sectionfavoris.appendChild(empty);
     } else for(let i = 0; i < modele.favorites.length; i++){
+      const emptyElements = document.querySelectorAll('#section-favoris .info-vide');
+      emptyElements.forEach(empty => empty.remove()); 
       console.log("pas dedans");
       const li = document.createElement("li");
       const img = document.createElement("img");
