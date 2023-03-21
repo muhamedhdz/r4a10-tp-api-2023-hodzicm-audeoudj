@@ -74,6 +74,7 @@ view.ulfavoris.addEventListener("click", function(event){
 // Récupération des données du localStorage lors du chargement de la page
 window.addEventListener('load', function() {
     const data = JSON.parse(localStorage.getItem('favoris'));
+    modele.setupImageEtoile();
     modele.afficherFavoris(data);
 });
 
@@ -86,6 +87,8 @@ document.addEventListener("keydown", function (event) {
     if(search != ""){
         modele.deleteAfficher();
         modele.fetchAPI();
+        view.btnfavoris.disabled = false;
+        modele.setupImageEtoile();
     }
     }
   }
