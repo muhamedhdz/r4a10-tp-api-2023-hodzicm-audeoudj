@@ -194,7 +194,7 @@ class Modele{
             view.etoile.src = "images/etoile-vide.svg";
             view.btnfavoris.style.backgroundColor = "rgb(26, 188, 156)";
         }
-
+        
         if(this.searchText == ""){
             view.etoile.src = "images/etoile-vide.svg";
             view.btnfavoris.style.backgroundColor = "#bebebe";
