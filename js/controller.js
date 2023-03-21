@@ -6,42 +6,40 @@ Récupère la valeur de l'input (recherche) et l'envoie à l'API
 */
 view.research.addEventListener("click", function () {
     search = document.querySelector("#RechercheForm").value;
-    
     modele.setSearchedText(search);
     if(search != ""){
         modele.deleteAfficher();
         modele.fetchAPI();
+        view.btnfavoris.disabled = false;
     }
-    //tooltip ?
+       
+        modele.setupImageEtoile();
 });
     
+/*
 view.RechercheInput.addEventListener("keyup", function (){
     if(modele.searchText == ""){
-        view.etoile.src = "images/etoile-pleine.svg";
+        view.etoile.src = "images/etoile-vide.svg";
         view.etoile.alt = "étoile vide";
     }else if(modele.search != ""){
-        view.etoile.src = "images/etoile-vide.svg";
+        view.etoile.src = "images/etoile-plein.svg";
         view.etoile.alt = "étoile pleine";
     }
-})
+})*/
 
 view.btnfavoris.addEventListener("click", function () {
     if(modele.searchText != ""){
         const data = modele.getSearchedText();
-        if(!modele.textisAlreadyFavorite(modele.searchText)){
-        //     const confirmation = confirm("Voulez vous vraiment supprimer ce favoris ?");
-        //     if(confirmation){
-        //         //on supprime le favori de la liste des favoris
-        //         const remove = JSON.parse(localStorage.getItem('donnee'));
-        //         modele.deleteFavorites(remove.getFavoriteIndex(data));
-        //         localStorage.setItem("favoris", JSON.stringify(modele.favorites));
-        //         //on change l'image de l'étoile
-        //         modele.setupImageEtoile();
-        //         //on réaffiche la liste des favoris sans le favori supprimé
-        //         modele.deleteAfficherFavoris();
-        //         modele.afficherFavoris();
-        //     }
-        // }else{
+            if(modele.isAlreadyFavorite(data)){
+                confirm("Voulez vous vraiment supprimer ce favoris ?");
+                if(confirm){
+                    const index = modele.getFavIndexWithText(data);
+                    modele.deleteFavorites(index);
+                    localStorage.setItem("favoris", JSON.stringify(modele.favorites));
+                    modele.setupImageEtoile();
+                    modele.afficherFavoris(modele.favorites);
+                }
+        }else{
             modele.addFavorites(data);
             localStorage.setItem("favoris", JSON.stringify(modele.favorites));
             modele.setupImageEtoile();
@@ -54,8 +52,6 @@ view.ulfavoris.addEventListener("click", function(event){
     if (event.target.classList.contains("rechercher_fav")) {
         const search = event.target.textContent;
         document.querySelector("#RechercheForm").value = search;
-        console.log(search);
-        console.log("dans le listener");
         modele.setSearchedText(search);
         if (search != "") {
             modele.deleteAfficher();
@@ -69,6 +65,7 @@ view.ulfavoris.addEventListener("click", function(event){
         modele.deleteFavorites(index);
         }
     }
+    modele.setupImageEtoile();
 });
 
 
